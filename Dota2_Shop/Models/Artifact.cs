@@ -9,7 +9,7 @@ namespace Dota2_Shop.Models
         public string ArtifactImage { get; set; }
         public string ArtifactName { get; set; }
         public string ArtifactBonus { get; set; }
-        public decimal ArtifactCost { get; set; }
+        public int ArtifactCost { get; set; }
         public string ArtifactDisription { get; set; }
     }
 }

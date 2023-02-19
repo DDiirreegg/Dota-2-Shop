@@ -18,5 +18,8 @@ namespace Dota2_Shop.Models
         public string ThirdAbility { get; set; }
         public string UltimateAbility { get; set; }
         public string HeroBio { get; set; }
+
+        //Relationships
+        public List<Item> Items { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dota2_Shop.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Date
 {
@@ -6,7 +7,10 @@ namespace Dota2_Shop.Date
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        }        
+        public DbSet<Hero> Heros { get; set; }
+        public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<Item> Items { get; set; }
 
-        }
     }
 }
