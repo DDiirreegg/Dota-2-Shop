@@ -103,7 +103,7 @@ namespace Dota2_Shop.Date
                         },
                         new Hero()
                         {
-                           HeroImage = "/img/Heroes/earth_spirit.png",
+                           HeroImage = "/img/Heroes/ember_spirit.png",
                            HeroName = "Ember Spirit",
                            HeroRole = Enum.HeroRole.Midlane,
                            StreghtAttributes = "22 + 2.6",
