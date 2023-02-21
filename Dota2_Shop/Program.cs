@@ -1,10 +1,15 @@
 using Dota2_Shop.Date;
+using Dota2_Shop.Date.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+builder.Services.AddScoped<IArtifactsService, ArtifactsService>();
+builder.Services.AddScoped<IHeroesService, HeroesService>();
+builder.Services.AddScoped<IItemsService, ItemService>();
 
 builder.Services.AddControllersWithViews();
 

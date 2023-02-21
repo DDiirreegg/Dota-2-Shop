@@ -1,0 +1,79 @@
+﻿@using Dota2_Shop.Date.Enum
+@model NewItemVM
+
+@{
+    ViewData["Title"] = "Create a new Item";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Add a new item</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label asp-for="ItemName" class="control-label"></label>
+                                <input asp-for="ItemName" class="form-control" />
+                                <span asp-validation-for="ItemName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ItemImage" class="control-label"></label>
+                                <input asp-for="ItemImage" class="form-control" />
+                                <span asp-validation-for="ItemImage" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ItemPrice" class="control-label"></label>
+                                <input asp-for="ItemPrice" type="number" class="form-control" />
+                                <span asp-validation-for="ItemPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="HeroId" class="control-label"></label>
+                                <select asp-for="HeroId" class="form-control" asp-items="ViewBag.Heros"></select>
+                                <span asp-validation-for="HeroId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Rarity" class="control-label"></label>
+                                <select asp-for="Rarity" class="form-control" asp-items="Html.GetEnumSelectList<Rarity>()"></select>
+                                <span asp-validation-for="Rarity" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PartOfSet" class="control-label"></label>
+                                <select asp-for="PartOfSet" class="form-control" asp-items="Html.GetEnumSelectList<PartOfSet>()"></select>
+                                <span asp-validation-for="PartOfSet" class="text-danger"></span>
+                            </div>
+                        </div>                    
+                        
+                    </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="ItemImagePreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#ItemImage").on("change", function () {
+            var output = document.getElementById("ItemImagePreview");
+            output.src = $(this).val();
+        })
+    </script>
+}

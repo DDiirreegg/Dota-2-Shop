@@ -1,0 +1,105 @@
+﻿@using Dota2_Shop.Date.Enum
+@model Hero
+
+@{
+    ViewData["Title"] = "Add a new Hero";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a new Hero</h1>                                                            
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group text-center">
+                        <img class="" id="HeroImagePreview" style="max-width: 400px" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HeroImage" class="control-lable"></label>
+                        <input asp-for="HeroImage" class="form-control"/>
+                        <span asp-validation-for="HeroImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HeroName" class="control-lable"></label>
+                        <input asp-for="HeroName" class="form-control"/>
+                        <span asp-validation-for="HeroName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HeroRole"></label>
+                        <select asp-for="HeroRole" class="form-control" asp-items="Html.GetEnumSelectList<HeroRole>()"></select>
+                        <span asp-validation-for="HeroRole" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StreghtAttributes" class="control-lable"></label>
+                        <input asp-for="StreghtAttributes" class="form-control"/>
+                        <span asp-validation-for="StreghtAttributes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AgilityAttributes" class="control-lable"></label>
+                        <input asp-for="AgilityAttributes" class="form-control"/>
+                        <span asp-validation-for="AgilityAttributes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IntelligenceAttributes" class="control-lable"></label>
+                        <input asp-for="IntelligenceAttributes" class="form-control"/>
+                        <span asp-validation-for="IntelligenceAttributes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstAbility" class="control-lable"></label>
+                        <input asp-for="FirstAbility" class="form-control"/>
+                        <span asp-validation-for="FirstAbility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SecondAbility" class="control-lable"></label>
+                        <input asp-for="SecondAbility" class="form-control"/>
+                        <span asp-validation-for="SecondAbility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThirdAbility" class="control-lable"></label>
+                        <input asp-for="ThirdAbility" class="form-control"/>
+                        <span asp-validation-for="ThirdAbility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UltimateAbility" class="control-lable"></label>
+                        <input asp-for="UltimateAbility" class="form-control"/>
+                        <span asp-validation-for="UltimateAbility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HeroBio" class="control-lable"></label>
+                        <input asp-for="HeroBio" class="form-control"/>
+                        <span asp-validation-for="HeroBio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('HeroImagePreview');
+            output.src = $(HeroImage).val();
+        })
+
+        $("#HeroImage").on("change", function () {
+            var output = document.getElementById('HeroImagePreview');
+            output.src = $(this).val();
+        })
+
+    </script>
+}
+

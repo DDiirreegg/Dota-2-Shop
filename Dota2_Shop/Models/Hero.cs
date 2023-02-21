@@ -1,9 +1,10 @@
-﻿using Dota2_Shop.Date.Enum;
+﻿using Dota2_Shop.Date.Base;
+using Dota2_Shop.Date.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dota2_Shop.Models
 {
-    public class Hero
+    public class Hero:IEntityBase
     {
         [Key]
         public int Id { get; set; }
