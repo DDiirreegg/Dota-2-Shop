@@ -1,4 +1,5 @@
 using Dota2_Shop.Date;
+using Dota2_Shop.Date.Cart;
 using Dota2_Shop.Date.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,11 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<IArtifactsService, ArtifactsService>();
 builder.Services.AddScoped<IHeroesService, HeroesService>();
 builder.Services.AddScoped<IItemsService, ItemService>();
+builder.Services.AddScoped<IOrdersServer, OrdersService>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+builder.Services.AddSession();
 
 builder.Services.AddControllersWithViews();
 
@@ -27,6 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

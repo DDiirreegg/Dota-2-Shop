@@ -6,8 +6,8 @@ namespace Dota2_Shop.Date.ViewModels
     {
         public NewItemDropdownVM()
         {
-            Heroes = new List<Hero>();
+            Heros = new List<Hero>();
         }
-        public List<Hero> Heroes { get; set; }           
+        public List<Hero> Heros { get; set; }           
     }
 }

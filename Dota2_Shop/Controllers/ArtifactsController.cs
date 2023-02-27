@@ -21,6 +21,20 @@ namespace Dota2_Shop.Controllers
             return View(allArtifacts);
         }
 
+        //Search string
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allArtifacts = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var searchResult = allArtifacts.Where(n => n.ArtifactName.Contains(searchString)).ToList();
+                return View("Index", searchResult);
+            }
+
+            return View("Index", allArtifacts);
+        }
+
         //Get: Artifacts/Create
         public IActionResult Create()
         {

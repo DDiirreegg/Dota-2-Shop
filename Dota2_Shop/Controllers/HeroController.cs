@@ -20,6 +20,20 @@ namespace Dota2_Shop.Controllers
             return View(allHeroes);
         }
 
+        //Search string
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allHeroes = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var searchResult = allHeroes.Where(n => n.HeroName.Contains(searchString)).ToList();
+                return View("Index", searchResult);
+            }
+
+            return View("Index", allHeroes);
+        }
+
         //Get: heroes/details
         public async Task<IActionResult> Details(int id)
         {

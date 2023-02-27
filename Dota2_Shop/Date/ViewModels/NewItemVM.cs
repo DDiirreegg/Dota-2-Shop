@@ -7,6 +7,7 @@ namespace Dota2_Shop.Models
 {
     public class NewItemVM
     {
+        public int Id { get; set; }
 
         [Display(Name ="Insert image")]        
         public string ItemImage { get; set; }

@@ -8,5 +8,9 @@ namespace Dota2_Shop.Date.Services
     {
         Task<Item> GetItemByIdAsync(int id);
         Task<NewItemDropdownVM> GetNewItemDropdownsValues();
+        Task AddNewItemAsync(NewItemVM date);
+        Task UpdateItemAsync(NewItemVM date);
+       
+
     }
 }
