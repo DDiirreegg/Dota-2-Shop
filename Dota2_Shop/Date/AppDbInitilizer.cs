@@ -1,4 +1,6 @@
-﻿using Dota2_Shop.Models;
+﻿using Dota2_Shop.Date.Static;
+using Dota2_Shop.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dota2_Shop.Date
 {
@@ -301,6 +303,53 @@ namespace Dota2_Shop.Date
                     });
                     context.SaveChanges();
 
+                }
+            }
+        }
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+
+                //Roles 
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                //Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var adminUserEmail = "admin@dota2shop.com";
+                var adminUser = await userManager.FindByEmailAsync("admin@dota2shop.com");
+                if(adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        Name = "Admin User",
+                        UserName = "admin-user",
+                        Email = adminUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAdminUser, "Dota2bestgame!");
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+
+                var appUserEmail = "user@dota2shop.com";
+                var appUser = await userManager.FindByEmailAsync("admin@dota2shop.com");
+                if (appUser == null)
+                {
+                    var newAppUser = new ApplicationUser()
+                    {
+                        Name = "Application User",
+                        UserName = "app-user",
+                        Email = appUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAppUser, "Dota2bestgame!");
+                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
                 }
             }
         }

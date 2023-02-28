@@ -1,6 +1,9 @@
 using Dota2_Shop.Date;
 using Dota2_Shop.Date.Cart;
 using Dota2_Shop.Date.Services;
+using Dota2_Shop.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +14,21 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<IArtifactsService, ArtifactsService>();
 builder.Services.AddScoped<IHeroesService, HeroesService>();
 builder.Services.AddScoped<IItemsService, ItemService>();
-builder.Services.AddScoped<IOrdersServer, OrdersService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
-builder.Services.AddSession();
 
+//Authentitication and authorization
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
+
+//....
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -35,6 +47,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+//Authentitication and authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -42,5 +58,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 AppDbInitilizer.Seed(app);
+AppDbInitilizer.SeedUsersAndRolesAsync(app).Wait();
 
 app.Run();

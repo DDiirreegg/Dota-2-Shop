@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Date.Services
 {
-    public class OrdersService : IOrdersServer
+    public class OrdersService : IOrdersService
     {
         private readonly AppDbContext _context;
         public OrdersService(AppDbContext context)

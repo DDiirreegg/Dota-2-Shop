@@ -9,12 +9,20 @@ namespace Dota2_Shop.Controllers
     {
         private readonly IItemsService _itemsService;
         private readonly ShoppingCart _shoppingCart;
-        private readonly IOrdersServer _ordersServer;
-        public OrdersController(IItemsService itemsService, ShoppingCart shoppingCart, IOrdersServer ordersServer)
+        private readonly IOrdersService _ordersService;
+        public OrdersController(IItemsService itemsService, ShoppingCart shoppingCart, IOrdersService ordersService)
         {
             _itemsService = itemsService;
             _shoppingCart = shoppingCart;
-            _ordersServer = ordersServer;
+            _ordersService = ordersService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            string userId = "";
+
+            var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
+            return View(orders);
         }
         public IActionResult ShoppingCart()
         {
@@ -57,7 +65,7 @@ namespace Dota2_Shop.Controllers
             string userId = "";
             string userEmailAddress = "";
 
-            await _ordersServer.StoreOrderAsync(items, userId, userEmailAddress);
+            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsync();
             return View("OrderCompleted");
         }

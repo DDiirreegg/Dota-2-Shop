@@ -2,7 +2,7 @@
 
 namespace Dota2_Shop.Date.Services
 {
-    public interface IOrdersServer
+    public interface IOrdersService
     {
         Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress);
         Task<List<Order>> GetOrdersByUserIdAsync(string userId);
