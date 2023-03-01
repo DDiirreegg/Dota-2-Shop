@@ -1,13 +1,16 @@
 ﻿using Dota2_Shop.Date;
 using Dota2_Shop.Date.Services;
+using Dota2_Shop.Date.Static;
 using Dota2_Shop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Controllers
 {
-    public class ArtifactsController : Controller
-    {
+    [Authorize(Roles = UserRoles.Admin)]
+    public class ArtifactsController : Controller       {
+        
         private readonly IArtifactsService _service;
 
         public ArtifactsController(IArtifactsService service)
@@ -15,6 +18,7 @@ namespace Dota2_Shop.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allArtifacts = await _service.GetAllAsync();
@@ -22,6 +26,7 @@ namespace Dota2_Shop.Controllers
         }
 
         //Search string
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
             var allArtifacts = await _service.GetAllAsync();

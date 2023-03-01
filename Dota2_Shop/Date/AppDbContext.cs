@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Date
 {
-    public class AppDbContext:IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

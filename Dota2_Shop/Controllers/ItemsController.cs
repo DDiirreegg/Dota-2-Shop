@@ -1,13 +1,16 @@
 ﻿using Dota2_Shop.Date;
 using Dota2_Shop.Date.Enum;
 using Dota2_Shop.Date.Services;
+using Dota2_Shop.Date.Static;
 using Dota2_Shop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ItemsController : Controller
     {
 
@@ -17,6 +20,8 @@ namespace Dota2_Shop.Controllers
         {
             _service = service;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allItems = await _service.GetAllAsync(n => n.Hero);
@@ -24,6 +29,7 @@ namespace Dota2_Shop.Controllers
         }
 
         //Search string
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
             var allItems = await _service.GetAllAsync(n => n.Hero);
@@ -38,6 +44,7 @@ namespace Dota2_Shop.Controllers
         }
 
         //Get Items/Details
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var itemDetails = await _service.GetItemByIdAsync(id);

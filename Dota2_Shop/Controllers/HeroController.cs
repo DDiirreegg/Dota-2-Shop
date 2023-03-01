@@ -1,11 +1,14 @@
 ﻿using Dota2_Shop.Date;
 using Dota2_Shop.Date.Services;
+using Dota2_Shop.Date.Static;
 using Dota2_Shop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dota2_Shop.Controllers
 {
+    [Authorize(Roles =UserRoles.Admin)]
     public class HeroController : Controller
     {
         private readonly IHeroesService _service;
@@ -14,6 +17,8 @@ namespace Dota2_Shop.Controllers
         {
             _service = service;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allHeroes = await _service.GetAllAsync();
@@ -21,6 +26,7 @@ namespace Dota2_Shop.Controllers
         }
 
         //Search string
+        [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
             var allHeroes = await _service.GetAllAsync();
@@ -35,6 +41,7 @@ namespace Dota2_Shop.Controllers
         }
 
         //Get: heroes/details
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var heroesDetails = await _service.GetByIdAsync(id);

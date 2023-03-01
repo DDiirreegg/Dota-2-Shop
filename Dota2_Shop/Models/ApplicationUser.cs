@@ -6,6 +6,6 @@ namespace Dota2_Shop.Models
     public class ApplicationUser:IdentityUser
     {
         [Display(Name = "Full name")]
-        public string Name { get; set; }
+        public string FullName { get; set; }
     }
 }

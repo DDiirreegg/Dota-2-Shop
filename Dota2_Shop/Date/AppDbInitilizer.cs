@@ -321,13 +321,14 @@ namespace Dota2_Shop.Date
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                var adminUserEmail = "admin@dota2shop.com";
-                var adminUser = await userManager.FindByEmailAsync("admin@dota2shop.com");
-                if(adminUser == null)
+                string adminUserEmail = "admin@dota2shop.com";
+
+                var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser == null)
                 {
                     var newAdminUser = new ApplicationUser()
                     {
-                        Name = "Admin User",
+                        FullName = "Admin User",
                         UserName = "admin-user",
                         Email = adminUserEmail,
                         EmailConfirmed = true
@@ -337,13 +338,14 @@ namespace Dota2_Shop.Date
                 }
 
 
-                var appUserEmail = "user@dota2shop.com";
-                var appUser = await userManager.FindByEmailAsync("admin@dota2shop.com");
+                string appUserEmail = "user@dota2shop.com";
+
+                var appUser = await userManager.FindByEmailAsync(appUserEmail);
                 if (appUser == null)
                 {
                     var newAppUser = new ApplicationUser()
                     {
-                        Name = "Application User",
+                        FullName = "Application User",
                         UserName = "app-user",
                         Email = appUserEmail,
                         EmailConfirmed = true
